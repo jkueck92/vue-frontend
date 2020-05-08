@@ -1,32 +1,12 @@
 <template>
-    <div>
-    <h1>CITY</h1>
+  <div>
     <v-card class="mx-auto" :loading="loading">
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-left">#</th>
-              <th class="text-left">Name</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="city in cities" :key="city.id">
-              <td>{{ city.id }}</td>
-              <td>{{ city.name }}</td>
-              <td class="text-center">
-                <v-btn color="primary" fab x-small dark @click="onShowCity(city)">
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn color="error" class="ml-2" fab x-small @click="onDelete(city)">
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
+      <v-card-title>
+        Cities
+      </v-card-title>
+      <v-card-text>
+        <CityTable :cities="cities"/>
+      </v-card-text>
     </v-card>
     <v-btn bottom color="green" dark fab fixed right @click="onShowDialog">
       <v-icon>mdi-plus</v-icon>
@@ -64,12 +44,16 @@
 </template>
 
 <script>
+import CityTable from '@/components/CityTable'
 import cityService from '@/services/city-service'
 
 export default {
-  name: 'Home',
+  name: 'ViewCities',
+  components: {
+    CityTable
+  },
   data: () => ({
-    cities: Array,
+    cities: [],
     loading: false,
     deleteDialog: false,
     dialog: {
